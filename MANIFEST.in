@@ -1,3 +1,6 @@
 graft arepyextras/perturbations/resources/troposphere_support
 global-exclude __pycache__
 global-exclude *.py[co]
+prune docs
+prune tests
+prune scripts

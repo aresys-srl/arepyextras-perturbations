@@ -451,7 +451,7 @@ class TroposphericDelayEstimator:
         Hydrostatic and wet mapping functions are evaluated in the form (latex):
 
         .. math::
-            mf = \\frac{1+\\frac{a}{1+\\frac{b}{1+c}}}{\sin(\\epsilon)+\\frac{a}{\sin(\\epsilon)+\\frac{b}{\sin(\\epsilon) + c}}}
+            mf = \\frac{1+\\frac{a}{1+\\frac{b}{1+c}}}{\\sin(\\epsilon)+\\frac{a}{\\sin(\\epsilon)+\\frac{b}{\\sin(\\epsilon) + c}}}
 
         where ε is the elevation angle (incidence angle in this case).
 
@@ -670,7 +670,7 @@ class TroposphericDelayEstimator:
 
         .. math::
 
-            \\Delta L_h^Z(h) = \\frac{0.0022768 \\cdot P}{1-0.00266 \\cdot \cos(2\\phi) -0.28 \\cdot 10^{-6} \\cdot h_{ell}}
+            \\Delta L_h^Z(h) = \\frac{0.0022768 \\cdot P}{1-0.00266 \\cdot \\cos(2\\phi) -0.28 \\cdot 10^{-6} \\cdot h_{ell}}
 
         wet delay exponential empirical decay correction by height
 

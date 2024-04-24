@@ -13,6 +13,7 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Software Development :: Libraries",
     "Topic :: Utilities",
     "License :: OSI Approved :: MIT License",
@@ -28,6 +29,17 @@ dependencies = [
 ]
 dynamic = ["version"]
 
+[project.optional-dependencies]
+dev = ['black', 'isort', 'pylint']
+doc = [
+    "ipython",
+    "nbsphinx",
+    "sphinx",
+    "sphinx-design",
+    "sphinx-copybutton",
+    "pydata-sphinx-theme",
+]
+
 [project.readme]
 file = "README.md"
 content-type = "text/markdown"
@@ -42,3 +54,19 @@ namespaces = true
 
 [tool.setuptools.dynamic]
 version = { attr = "arepyextras.perturbations.__version__" }
+
+[tool.pylint.MASTER]
+fail-under = 8.0
+
+[tool.pylint."MESSAGES CONTROL"]
+disable = ["import-error", "logging-fstring-interpolation", "logging-not-lazy"]
+
+[tool.pylint.FORMAT]
+max-line-length = 120
+
+[tool.black]
+line-length = 120
+target-version = ["py39", "py310", "py311", "py312"]
+
+[tool.isort]
+profile = "black"
