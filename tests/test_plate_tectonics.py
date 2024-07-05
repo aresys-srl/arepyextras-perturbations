@@ -7,7 +7,11 @@ import unittest
 
 import numpy as np
 
-from arepyextras.perturbations.geodynamics.plate_tectonics import compute_displacement
+from arepyextras.perturbations.geodynamics.plate_tectonics import (
+    ITRF2014PlatesRotationPoles,
+    WrongTectonicPlateReferenceError,
+    compute_displacement,
+)
 
 
 class PlateTectonics(unittest.TestCase):
@@ -35,9 +39,17 @@ class PlateTectonics(unittest.TestCase):
             ]
         )
 
-    def test_compute_displacement(self):
-        """Testing compute_displacement function"""
+    def test_compute_displacement_from_string(self):
+        """Testing compute_displacement function, string plate"""
         displacement = compute_displacement(xyz_coords=self.pt_pos, plate_ref="ARAB", time_delta=self.time)
+
+        np.testing.assert_allclose(displacement, self.displacement_ref, atol=1e-10, rtol=0)
+
+    def test_compute_displacement_from_enum(self):
+        """Testing compute_displacement function, enum plate"""
+        displacement = compute_displacement(
+            xyz_coords=self.pt_pos, plate_ref=ITRF2014PlatesRotationPoles.ARAB, time_delta=self.time
+        )
 
         np.testing.assert_allclose(displacement, self.displacement_ref, atol=1e-10, rtol=0)
 
@@ -49,9 +61,14 @@ class PlateTectonics(unittest.TestCase):
         np.testing.assert_allclose(displacement, self.time * drift_vel, atol=1e-10, rtol=0)
 
     def test_compute_displacement_error(self):
-        """Testing compute_displacement function with drift velocities"""
+        """Testing compute_displacement function, no drift vel and no plate"""
         with self.assertRaises(RuntimeError):
             compute_displacement(xyz_coords=self.pt_pos, time_delta=self.time)
+
+    def test_compute_displacement_wrong_plate(self):
+        """Testing compute_displacement function, wrong plate name"""
+        with self.assertRaises(WrongTectonicPlateReferenceError):
+            compute_displacement(xyz_coords=self.pt_pos, plate_ref="TEST", time_delta=self.time)
 
 
 if __name__ == "__main__":
