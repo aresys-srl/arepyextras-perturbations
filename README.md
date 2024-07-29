@@ -20,9 +20,3 @@ The package can be installed via pip:
 ```shell
 pip install arepyextras-perturbations
 ```
-
-or via conda:
-
-```shell
-conda install arepyextras-perturbations
-```
